@@ -68,7 +68,7 @@ namespace IISExpressProxy
 			if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)
 				return;
 
-			this.ButtonEditPath.Text = dlg.SelectedPath;
+			this.TextBoxPath.Text = dlg.SelectedPath;
 		}
 	}
 }

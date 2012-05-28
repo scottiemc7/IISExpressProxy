@@ -62,7 +62,7 @@ namespace IISExpressProxy.Models
 		{
 			get
 			{
-				if (_availableApps == null)
+				//if (_availableApps == null)
 					_availableApps = _config.GetAvailableSites();
 
 				return _availableApps;
@@ -74,7 +74,7 @@ namespace IISExpressProxy.Models
 		{
 			get
 			{
-				if (_availablePools == null)
+				//if (_availablePools == null)
 					_availablePools = _config.GetApplicationPools();
 
 				return _availablePools;

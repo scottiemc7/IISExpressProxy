@@ -1,6 +1,8 @@
-﻿<Window xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="IISExpressProxy.MainWindow"
+﻿<Window x:Class="IISExpressProxy.MainWindow"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Topmost="True"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Topmost="True"
 		Title="IIS Express Proxy" Height="309" Width="348">
 	<Grid>
 		<Grid.RowDefinitions>
@@ -12,34 +14,50 @@
 		</Grid.ColumnDefinitions>
 		<TabControl>
 			<TabItem Header="Sites">
-				<dx:UniformStackPanel Margin="5,5,5,0" Orientation="Vertical">
+                <StackPanel>
+				<!--<dx:UniformStackPanel Margin="5,5,5,0" Orientation="Vertical">-->
 					<StackPanel>
 						<Label Target="{Binding ElementName=ComboSites}" Padding="0">Available Sites:</Label>
-						<dxe:ComboBoxEdit  Name="ComboSites" ItemsSource="{Binding Path=AvailableSites}" SelectedItem="{Binding Path=SelectedSite}" IsTextEditable="False" />
+                        <ComboBox Name="ComboSites" ItemsSource="{Binding Path=AvailableSites}" SelectedItem="{Binding Path=SelectedSite}" IsEditable="False"></ComboBox>
+						<!--<dxe:ComboBoxEdit  Name="ComboSites" ItemsSource="{Binding Path=AvailableSites}" SelectedItem="{Binding Path=SelectedSite}" IsTextEditable="False" />-->
 					</StackPanel>
 					<StackPanel>
 						<Label Target="{Binding ElementName=ComboPools}"  Padding="0">Available Pools:</Label>
-						<dxe:ComboBoxEdit Name="ComboPools" ItemsSource="{Binding Path=AvailablePools}" SelectedItem="{Binding Path=SelectedPool}" IsTextEditable="False"/>
+                        <ComboBox Name="ComboPools" ItemsSource="{Binding Path=AvailablePools}" SelectedItem="{Binding Path=SelectedPool}" IsEditable="False"></ComboBox>
+						<!--<dxe:ComboBoxEdit Name="ComboPools" ItemsSource="{Binding Path=AvailablePools}" SelectedItem="{Binding Path=SelectedPool}" IsTextEditable="False"/>-->
 					</StackPanel>
-					<dx:UniformStackPanel Orientation="Horizontal">
+					<!--<dx:UniformStackPanel Orientation="Horizontal">-->
+                    <StackPanel>
 						<StackPanel>
-							<Label Target="{Binding ElementName=SpinPort}"  Padding="0" Margin="0">External Port (1-65535):</Label>
-							<dxe:SpinEdit Width="100" HorizontalAlignment="Left" Name="SpinPort" MaxValue="65535" MinValue="1" Value="{Binding Path=SelectedExternalPort, Mode=TwoWay, TargetNullValue=1}" DisplayFormatString="D" IsFloatValue="False"/>
+							<Label Target="{Binding ElementName=SpinPort}"  Padding="0" Margin="0">External Port (1-65534):</Label>
+                            <xctk:IntegerUpDown Maximum="65534" Minimum="1" Value="{Binding Path=SelectedExternalPort, Mode=TwoWay, TargetNullValue=1}" Width="100" HorizontalAlignment="Left"/>
+							<!--<dxe:SpinEdit Width="100" HorizontalAlignment="Left" Name="SpinPort" MaxValue="65535" MinValue="1" Value="{Binding Path=SelectedExternalPort, Mode=TwoWay, TargetNullValue=1}" DisplayFormatString="D" IsFloatValue="False"/>-->
 						</StackPanel>
-						<dxe:CheckEdit IsChecked="{Binding Path=AutoBrowse}" VerticalAlignment="Bottom">Automatically Browse To</dxe:CheckEdit>
-					</dx:UniformStackPanel>
-				</dx:UniformStackPanel>
-			</TabItem>
+                        <CheckBox IsChecked="{Binding Path=AutoBrowse}" VerticalAlignment="Bottom">Automatically Browse To</CheckBox>
+						<!--<dxe:CheckEdit IsChecked="{Binding Path=AutoBrowse}" VerticalAlignment="Bottom">Automatically Browse To</dxe:CheckEdit>-->
+                    </StackPanel>
+                    <!--</dx:UniformStackPanel>-->
+				<!--</dx:UniformStackPanel>-->
+             </StackPanel>
+            </TabItem>
 			<TabItem Header="Settings">
-				<dx:UniformStackPanel Margin="5,5,5,0" Orientation="Vertical">					
-					<Label Target="{Binding ElementName=ButtonEditPath}" Padding="0">Path to applicationhost.config:</Label>
-					<dxe:ButtonEdit Name="ButtonEditPath" Text="{Binding Path=AppConfigPath}" ButtonBase.Click="ButtonEditPath_Click"></dxe:ButtonEdit>					
-				</dx:UniformStackPanel>
+				<!--<dx:UniformStackPanel Margin="5,5,5,0" Orientation="Vertical">-->
+                <StackPanel>
+                    <Label Target="{Binding ElementName=TextBoxPath}" Padding="0">Directory containing 'applicationhost.config':</Label>
+                    <DockPanel>
+                        <Button Width="25" DockPanel.Dock="Right" Click="ButtonEditPath_Click">...</Button>
+                        <TextBox Name="TextBoxPath" Text="{Binding Path=AppConfigPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left"></TextBox>
+                    </DockPanel>
+                </StackPanel>
+                <!--<dxe:ButtonEdit Name="ButtonEditPath" Text="{Binding Path=AppConfigPath}" ButtonBase.Click="ButtonEditPath_Click"></dxe:ButtonEdit>-->					
+				<!--/dx:UniformStackPanel>-->
 			</TabItem>
 		</TabControl>
 			
-		<dx:UniformStackPanel Margin="5,5,5,5" Grid.Row="1">
+		<!--<dx:UniformStackPanel Margin="5,5,5,5" Grid.Row="1">-->
+        <StackPanel Grid.Row="1">
 			<Button Content="{Binding Path=CurrentCommandText}" Height="23" HorizontalAlignment="Left" Name="button1" VerticalAlignment="Top" Width="75" Command="{Binding Path=ExCommand}" />
-		</dx:UniformStackPanel>
+        </StackPanel>
+        <!--</dx:UniformStackPanel>-->        
 	</Grid>
 </Window>

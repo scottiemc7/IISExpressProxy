@@ -66,7 +66,9 @@ namespace IISExpressProxy.Models
 					rootNode.RemoveChild(xmlNode);
 				else
 				{
-					xmlNode.SelectSingleNode("application").Attributes["applicationPool"].Value = poolName;
+                    XmlNode appPoolAttr = xmlNode.SelectSingleNode("application").Attributes["applicationPool"];
+                    if(appPoolAttr != null)
+					    appPoolAttr.Value = poolName;
 					xmlNode.SelectSingleNode("bindings/binding[@protocol='http']").Attributes["bindingInformation"].Value = String.Format("*:{0}:", port);
 				}//end if
 			}//end foreach

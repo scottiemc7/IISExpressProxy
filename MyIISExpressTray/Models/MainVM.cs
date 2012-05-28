@@ -36,7 +36,7 @@ namespace IISExpressProxy.Models
 				_selectedSite = lastSite;
 			else
 				_selectedSite = AvailableSites.Count > 0 ? AvailableSites[0] : null;
-			 
+
 			string lastPool = settingsSvc.Get("LastPoolName");
 			if (!String.IsNullOrEmpty(lastPool) && AvailableSites.Contains(lastPool))
 				_selectedPool = lastPool;
@@ -52,6 +52,37 @@ namespace IISExpressProxy.Models
 			AppConfigPath = _settingsService.Get("ConfigPath");
 		}
 
+        //private void LoadFromConfigService(bool isFirstLoad)
+        //{
+        //    if(isFirstLoad)
+        //    {
+        //    int portNum = 1;
+        //    if (Int32.TryParse(_settingsService.Get("LastExternalPort"), out portNum))
+        //        _selectedExternalPort = portNum;
+        //    else
+        //        _selectedExternalPort = 1;
+
+        //    string lastSite = _settingsService.Get("LastSiteName");
+        //    if (!String.IsNullOrEmpty(lastSite) && AvailableSites.Contains(lastSite))
+        //        _selectedSite = lastSite;
+        //    else
+        //        _selectedSite = AvailableSites.Count > 0 ? AvailableSites[0] : null;
+
+        //    string lastPool = _settingsService.Get("LastPoolName");
+        //    if (!String.IsNullOrEmpty(lastPool) && AvailableSites.Contains(lastPool))
+        //        _selectedPool = lastPool;
+        //    else
+        //        _selectedPool = AvailablePools.Count > 0 ? AvailablePools[0] : null;
+
+        //    bool autoBrowse = true;
+        //    if (Boolean.TryParse(_settingsService.Get("LastAutoBrowse"), out autoBrowse))
+        //        _autoBrowse = autoBrowse;
+        //    else
+        //        _autoBrowse = true;
+
+        //    AppConfigPath = _settingsService.Get("ConfigPath");
+        //}
+
 		#region Properties
 		
 		public List<string> AvailableSites
@@ -66,7 +97,7 @@ namespace IISExpressProxy.Models
 		{
 			get
 			{
-				return _appManager.AvailableApplicationPools;
+				return _appManager.AvailableApplicationPools;               
 			}
 		}
 
@@ -136,10 +167,12 @@ namespace IISExpressProxy.Models
 				_settingsService.Set("ConfigPath", value);
 				_appConfigPath = value;
 				NotifiyPropertyChanged("AppConfigPath");
+                NotifiyPropertyChanged("AvailableSites");
+                NotifiyPropertyChanged("AvailablePools");
 			}
 		}
 
-		[Range(1, 65535)]
+		[Range(1, 65534)]
 		public int SelectedExternalPort
 		{
 			get
