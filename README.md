@@ -1,21 +1,17 @@
-My Fitness Scraper
+IIS Express Proxy
 ====================
+  
+Proxy for IIS Express 7.5. 
 
-A screen scraper app for MyFitnessPal.com. Data for all meals are saved in a .csv formatted file.  
+Relies on:  
+**Ninject** (http://www.ninject.org/)  
+**WPF Extended Toolkit** (http://wpftoolkit.codeplex.com/)  
 
-Relies on the HTML Agility Pack for HTML parsing (http://htmlagilitypack.codeplex.com/)  
+Inspired by:  
+**SharpProxy** (https://github.com/jocull/SharpProxy)  
 
 Usage:
 ---------------------
 * * *
-
-    MyFitnessScraper.exe {UserName} {Password} {StartDate} {NumberOfDays} {PathToCSVFile}    
-
-
-Still TODO:
----------------------
-* * *
--Some serious error checking/logging
--Add more unit tests
--Scrape exercise data
--GUI
+  
+Open the application as an administrator, and change the settings to point to the directory containing the IIS Express applicationhost.config file (usually under My Documents\IIS Express). Select an application to host from the drop down list, click 'Host' and with a little luck you should be off and running. Now your application should be visible to machines other than the localhost.
